@@ -8,6 +8,9 @@ public class Game {
         {"7", "8", "9"},
     };
 
+    private String currentPlayer = "X";
+    private String winner = "";
+
     private void displayBoard(){
         for (int i = 0; i < 3; i++){
             for (int j = 0; j < 3; j++){
@@ -30,14 +33,28 @@ public class Game {
         return false;
     }
 
+    public void setCurrentPlayer(String player) {
+        this.currentPlayer = player;
+    }
+
+    public String getWinner() {
+        return winner;
+    }
+
     public void playGame(){
         java.util.Scanner scanner = new java.util.Scanner(System.in);
-        String currentPlayer = "X";
         int moves = 0;
         while (true){
             displayBoard();
             System.out.println("Player " + currentPlayer + ", enter your move (1-9): ");
-            int move = scanner.nextInt();
+            String moveInput = scanner.nextLine();
+
+            // make sure input is valid
+            if (!moveInput.matches("[1-9]")){ 
+                System.out.println("Invalid input. Try again.");
+                continue;
+            }
+            int move = Integer.parseInt(moveInput);
             if (move < 1 || move > 9){
                 System.out.println("Invalid move. Try again.");
                 continue;
@@ -50,20 +67,20 @@ public class Game {
             }
             board[row][col] = currentPlayer;
             moves++;
+
             if (checkWin()){
                 displayBoard();
                 System.out.println("Player " + currentPlayer + " wins!");
+                winner = currentPlayer;  
                 break;
             }
             if (moves == 9){
                 displayBoard();
                 System.out.println("It's a draw!");
+                winner = "D";          
                 break;
             }
             currentPlayer = currentPlayer.equals("X") ? "O" : "X";
         }
     }
-
-
-    
 }

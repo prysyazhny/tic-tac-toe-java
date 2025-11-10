@@ -1,0 +1,6 @@
+---- Tic-Tac-Toe Game Log ----
+Games played : 1
+Player X wins: 1
+Player O wins: 0
+Ties         : 0
+------------------------------
